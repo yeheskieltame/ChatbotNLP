@@ -1,0 +1,67 @@
+{
+    "makanan": [
+        {
+            "id": "M001",
+            "nama": "Nasi Goreng Cerita",
+            "harga": 25000,
+            "deskripsi": "Nasi goreng spesial dengan bumbu rahasia Kafe Cerita."
+        },
+        {
+            "id": "M002",
+            "nama": "Mie Kuah Rempah",
+            "harga": 22000,
+            "deskripsi": "Mie kuah dengan kaldu rempah yang hangat dan kaya rasa."
+        },
+        {
+            "id": "M003",
+            "nama": "Ayam Geprek Sambal Bawang",
+            "harga": 28000,
+            "deskripsi": "Ayam geprek renyah dengan sambal bawang pedas."
+        },
+        {
+            "id": "M004",
+            "nama": "Roti Bakar Cokelat Keju",
+            "harga": 18000,
+            "deskripsi": "Roti bakar klasik dengan topping cokelat dan keju."
+        },
+        {
+            "id": "M005",
+            "nama": "Pisang Goreng Karamel",
+            "harga": 15000,
+            "deskripsi": "Pisang goreng renyah disiram saus karamel."
+        }
+    ],
+    "minuman": [
+        {
+            "id": "K001",
+            "nama": "Kopi Susu Cerita",
+            "harga": 18000,
+            "deskripsi": "Espresso, susu segar, dan gula aren pilihan."
+        },
+        {
+            "id": "K002",
+            "nama": "Americano",
+            "harga": 15000,
+            "deskripsi": "Espresso dengan air panas."
+        },
+        {
+            "id": "K003",
+            "nama": "Teh Melati Hangat",
+            "harga": 12000,
+            "deskripsi": "Teh melati klasik yang menenangkan."
+        },
+        {
+            "id": "K004",
+            "nama": "Es Jeruk Segar",
+            "harga": 16000,
+            "deskripsi": "Perasan jeruk segar dengan es."
+        },
+        {
+            "id": "K005",
+            "nama": "Cokelat Klasik",
+            "harga": 20000,
+            "deskripsi": "Minuman cokelat hangat atau dingin yang kaya rasa."
+        }
+    ],
+    "info_pemesanan": "Untuk memesan, silakan sebutkan nama item dan jumlahnya. Contoh: 'Saya mau pesan Nasi Goreng Cerita 1 dan Kopi Susu Cerita 2'. Pemesanan juga bisa langsung di kasir."
+}
