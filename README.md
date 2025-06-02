@@ -67,7 +67,6 @@ ChatbotNLP/
 Dashboard admin digunakan untuk mengelola menu kafe:
 
 ```bash
-cd ChatbotNLP
 streamlit run admin_dashboard/app.py
 ```
 
@@ -83,7 +82,6 @@ Dashboard akan terbuka di browser Anda (biasanya di http://localhost:8501).
 Bot Telegram memungkinkan pelanggan memesan melalui chat:
 
 ```bash
-cd ChatbotNLP
 python bot/telegram_bot.py
 ```
 
