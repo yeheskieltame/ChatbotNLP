@@ -47,7 +47,7 @@ ChatbotNLP/
 
 1. Clone repository ini:
    ```bash
-   git clone https://github.com/username/ChatbotNLP.git
+   git clone https://github.com/yeheskieltame/ChatbotNLP.git
    cd ChatbotNLP
    ```
 
