@@ -175,7 +175,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     set_user_state(user_id, STATE_GENERAL) 
     reset_order_details(user_id) # Bersihkan sisa order jika ada
     await update.message.reply_html(
-        rf"Halo {user.mention_html()}! Selamat datang di Kafe Cerita. Ada yang bisa saya bantu? "
+        rf"Halo {user.mention_html()}! Selamat datang di Mata Kopian. Ada yang bisa saya bantu? "
         "Anda bisa tanya tentang menu, harga, atau cara pemesanan.",
     )
 
@@ -183,7 +183,7 @@ async def menu_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     user_id = update.effective_user.id
     # set_user_state(user_id, STATE_GENERAL) # Melihat menu tidak harus mereset state order
     menu = get_menu(force_reload=True)
-    response = "Berikut adalah menu Kafe Cerita:\n\n"
+    response = "Berikut adalah menu Mata Kopian:\n\n"
     response += "*Makanan* 🍔:\n"
     makanan = menu.get("makanan", [])
     if makanan:
@@ -379,7 +379,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                 item_summary_text = "\n- ".join(item_summary_list) if item_summary_list else "Tidak ada item"
                 
                 receipt_text = (
-                    f"--- Struk Pesanan Kafe Cerita ---\n"
+                    f"--- Struk Pesanan Mata Kopian ---\n"
                     f"Nomor Pesanan: *{order_id}*\n"
                     f"Tanggal: {datetime.now().strftime('%d-%m-%Y %H:%M')}\n\n"
                     f"Item Dipesan:\n- {item_summary_text}\n\n"

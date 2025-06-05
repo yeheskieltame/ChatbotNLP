@@ -2,9 +2,9 @@
     "makanan": [
         {
             "id": "M001",
-            "nama": "Nasi Goreng Cerita",
+            "nama": "Nasi Goreng Mata Kopian",
             "harga": 25000,
-            "deskripsi": "Nasi goreng spesial dengan bumbu rahasia Kafe Cerita."
+            "deskripsi": "Nasi goreng spesial dengan bumbu rahasia Mata Kopian."
         },
         {
             "id": "M002",
@@ -34,7 +34,7 @@
     "minuman": [
         {
             "id": "K001",
-            "nama": "Kopi Susu Cerita",
+            "nama": "Kopi Susu Mata Kopian",
             "harga": 18000,
             "deskripsi": "Espresso, susu segar, dan gula aren pilihan."
         },
@@ -63,5 +63,5 @@
             "deskripsi": "Minuman cokelat hangat atau dingin yang kaya rasa."
         }
     ],
-    "info_pemesanan": "Untuk memesan, silakan sebutkan nama item dan jumlahnya. Contoh: 'Saya mau pesan Nasi Goreng Cerita 1 dan Kopi Susu Cerita 2'. Pemesanan juga bisa langsung di kasir."
+    "info_pemesanan": "Untuk memesan, silakan sebutkan nama item dan jumlahnya. Contoh: 'Saya mau pesan Nasi Goreng Mata Kopian 1 dan Kopi Susu Mata Kopian 2'. Pemesanan juga bisa langsung di kasir."
 }

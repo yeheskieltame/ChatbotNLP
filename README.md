@@ -1,6 +1,6 @@
-# Kafe Cerita - Chatbot NLP
+# Mata Kopian - Chatbot NLP
 
-Aplikasi Chatbot Telegram dengan fitur NLP (Natural Language Processing) untuk "Kafe Cerita" yang memungkinkan pengguna memesan makanan dan minuman melalui chat. Dilengkapi dengan dashboard admin untuk mengelola menu.
+Aplikasi Chatbot Telegram dengan fitur NLP (Natural Language Processing) untuk "Mata Kopian" yang memungkinkan pengguna memesan makanan dan minuman melalui chat. Dilengkapi dengan dashboard admin untuk mengelola menu.
 
 ## Fitur Utama
 
@@ -93,7 +93,7 @@ python bot/telegram_bot.py
 5. Ikuti panduan chatbot untuk menyelesaikan pesanan
 
 #### Contoh Alur Pemesanan:
-1. "Saya mau pesan Nasi Goreng Cerita"
+1. "Saya mau pesan Nasi Goreng Mata Kopian"
 2. Bot akan bertanya jumlah: "Mau pesan berapa banyak/porsi?"
 3. Jawab dengan angka: "2"
 4. Bot akan bertanya opsi makan: "Mau dimakan di tempat atau dibungkus?"
@@ -102,20 +102,50 @@ python bot/telegram_bot.py
 7. Pilih: "E-Wallet"
 8. Bot akan memberikan struk pesanan dengan detail pembayaran
 
-## Fitur NLP
+## Penjelasan Metode NLP yang Digunakan
 
-Bot ini menggunakan teknik NLP sederhana untuk memahami bahasa alami:
+Aplikasi ini menggunakan beberapa metode NLP berbasis aturan (rule-based) untuk memahami dan memproses bahasa alami pengguna:
 
-1. **Intent Recognition**: Mengenali maksud pengguna dari pesan teks
-   - lihat_menu, tanya_harga, info_pemesanan, sapaan, dll.
+### 1. Intent Recognition (Pengenalan Intent)
+- **Metode:** Rule-based keyword matching
+- **Penjelasan:**
+  - Setiap intent (misal: lihat_menu, tanya_harga, info_pemesanan, sapaan, dsb) memiliki daftar kata kunci.
+  - Skor diberikan jika keyword ditemukan dalam pesan pengguna:
+    - Skor 2 jika keyword cocok sebagai kata utuh
+    - Skor 1 jika keyword hanya sebagai substring
+  - Intent dengan skor tertinggi dipilih sebagai hasil.
+- **Rumus:**
+  ```python
+  score(intent) = jumlah keyword intent yang cocok di pesan
+  intent_terpilih = intent dengan score tertinggi (score > 0)
+  ```
 
-2. **Entity Extraction**: Mengekstrak informasi spesifik dari pesan
-   - Nama item menu
-   - Jumlah/kuantitas pesanan
+### 2. Entity Extraction (Ekstraksi Entitas)
+- **Metode:** String matching dan regular expression
+- **Penjelasan:**
+  - Nama item diekstrak dengan mencocokkan nama menu pada pesan pengguna.
+  - Kuantitas diekstrak dengan regex angka atau kata bilangan ("satu", "dua", dst).
+- **Rumus:**
+  ```python
+  quantity = int(angka_pertama_ditemukan) 
+  # atau
+  quantity = mapping_kata_ke_angka[kata_angka_pertama_ditemukan]
+  item = item_menu jika nama_item_menu in pesan_pengguna
+  ```
 
-3. **Context Management**: Menjaga konteks percakapan
-   - Mengingat item terakhir yang ditanyakan
-   - Mengelola alur pemesanan dengan state machine
+### 3. Text Preprocessing (Pra-pemrosesan Teks)
+- **Metode:** Lowercasing, hapus tanda baca, trim whitespace
+- **Penjelasan:**
+  - Semua teks pengguna diproses dengan: lowercase, hapus tanda baca, dan spasi berlebih.
+
+### 4. Context Management (Manajemen Konteks)
+- **Metode:** State machine & context dictionary per user
+- **Penjelasan:**
+  - Setiap user memiliki state (misal: GENERAL, AWAITING_QUANTITY, dst)
+  - Konteks seperti item terakhir yang ditanyakan, pesanan sementara, dsb, disimpan dalam dictionary `user_contexts`
+  - Bot dapat mengenali referensi seperti "itu", "item tadi" dengan melihat konteks sebelumnya
+
+> **Catatan:** Semua proses NLP di aplikasi ini menggunakan metode rule-based (berbasis aturan/kata kunci), tanpa model machine learning/statistik.
 
 ## Troubleshooting
 

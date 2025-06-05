@@ -25,7 +25,7 @@ except ImportError as e:
 
 # Konfigurasi Halaman Streamlit
 st.set_page_config(
-    page_title="Admin Dashboard - Kafe Cerita",
+    page_title="Admin Dashboard - Mata Kopian",
     page_icon="☕",
     layout="wide"
 )
@@ -39,7 +39,7 @@ if 'confirming_delete_id' not in st.session_state:
     st.session_state.confirming_delete_id = None
 
 
-st.title("☕ Admin Dashboard Kafe Cerita")
+st.title("☕ Admin Dashboard Mata Kopian")
 st.markdown("Kelola menu dan informasi kafe Anda di sini.")
 
 # Tombol untuk memuat ulang data menu
