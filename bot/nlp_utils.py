@@ -54,7 +54,7 @@ INTENT_KEYWORDS = {
     ],
     "konfirmasi_tidak": [ # Berguna untuk konfirmasi dalam alur state
         "tidak", "bukan", "jangan", "ga", "gak", "nggak", "batal", "cancel", "gak jadi",
-        "tidak jadi", "no", "enggak", "skip", "ga usah", "nggak deh", "nanti aja",
+        "tidak jadi", "enggak", "skip", "ga usah", "nggak deh", "nanti aja",
         "ga dulu", "nanti aja deh", "gajadi deh"
     ]
 }
@@ -103,11 +103,15 @@ def extract_entities_item_name(text):
     processed_text = preprocess_text(text)
     menu = get_menu(force_reload=False) 
     
+    # Perbaikan: Ambil semua item dari semua kategori yang ada
     all_items = []
-    if menu.get("makanan"):
-        all_items.extend(menu["makanan"])
-    if menu.get("minuman"):
-        all_items.extend(menu["minuman"])
+    
+    # Daftar kategori yang sesuai dengan struktur menu
+    categories = ["es_kopi", "non_kopi", "espresso_based", "refreshment", "others", "pastry"]
+    
+    for category in categories:
+        if menu.get(category):
+            all_items.extend(menu[category])
 
     found_items_data = []
     sorted_items_by_name_len = sorted(all_items, key=lambda x: len(x.get("nama","")), reverse=True)

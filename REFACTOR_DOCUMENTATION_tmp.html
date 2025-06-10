@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>REFACTOR_DOCUMENTATION.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+html,footer,header{
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Custom MD PDF CSS
+ */
+html,footer,header{
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+
+ }
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///Users/kiel/ChatbotNLP/R%3A%5C2.Travail%5C1.Enseignement%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css"><link rel="stylesheet" href="file:///Users/kiel/ChatbotNLP/D%3A%5Crdaros%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css">
+</head>
+
+<body>
+    <h1 id="dokumentasi-struktur-bot-kafe-cerita">Dokumentasi Struktur Bot Kafe Cerita</h1>
+<h2 id="overview-pemecahan-file">Overview Pemecahan File</h2>
+<p>Aplikasi bot Telegram Kafe Cerita telah dipecah menjadi 4 modul utama untuk meningkatkan keterbacaan dan kemudahan maintenance:</p>
+<pre class="hljs"><code><div>bot/
+├── telegram_bot.py      # Main entry point &amp; router
+├── user_context.py      # State &amp; context management
+├── commands.py          # Command handlers (/start, /menu)
+├── message_handlers.py  # State-based message handlers
+└── nlp_utils.py        # NLP utilities (sudah ada)
+</div></code></pre>
+<h2 id="file-details">File Details</h2>
+<h3 id="1-bottelegrambotpy-main-file">1. <code>bot/telegram_bot.py</code> (MAIN FILE)</h3>
+<p><strong>Tanggung Jawab:</strong> Entry point utama dan router pesan</p>
+<ul>
+<li>Setup aplikasi Telegram Bot</li>
+<li>Main message handler yang mengarahkan ke handler yang tepat</li>
+<li>Error handling tingkat atas</li>
+<li>Fungsi <code>main()</code> untuk menjalankan bot</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>handle_message()</code> - Router utama semua pesan text</li>
+<li><code>main()</code> - Setup dan jalankan bot</li>
+</ul>
+<h3 id="2-botusercontextpy">2. <code>bot/user_context.py</code></h3>
+<p><strong>Tanggung Jawab:</strong> Manajemen state dan context pengguna</p>
+<ul>
+<li>Konstanta state (STATE_GENERAL, STATE_AWAITING_QUANTITY, dll)</li>
+<li>Storage context pengguna (<code>user_contexts</code>)</li>
+<li>Functions untuk manipulasi state dan order data</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>get_user_state()</code> / <code>set_user_state()</code> - Manajemen state</li>
+<li><code>get_order_details()</code> / <code>update_order_field()</code> - Manipulasi pesanan</li>
+<li><code>add_item_to_current_order()</code> - Tambah item ke pesanan</li>
+<li><code>calculate_total_price()</code> - Hitung total harga</li>
+<li><code>generate_order_id()</code> - Generate ID pesanan unik</li>
+<li><code>reset_order_details()</code> - Reset pesanan</li>
+</ul>
+<h3 id="3-botcommandspy">3. <code>bot/commands.py</code></h3>
+<p><strong>Tanggung Jawab:</strong> Handler untuk semua command bot</p>
+<ul>
+<li>Handler untuk <code>/start</code> command</li>
+<li>Handler untuk <code>/menu</code> command</li>
+<li>Logic formatting menu dengan kategori dan emoji</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>start_command()</code> - Welcome message dan reset context</li>
+<li><code>menu_command()</code> - Tampilkan menu lengkap dengan format rapi</li>
+</ul>
+<h3 id="4-botmessagehandlerspy">4. <code>bot/message_handlers.py</code></h3>
+<p><strong>Tanggung Jawab:</strong> Handler pesan berdasarkan state conversation</p>
+<ul>
+<li>Handler untuk setiap state pemesanan</li>
+<li>Intent processing untuk state GENERAL</li>
+<li>Receipt generation untuk pesanan selesai</li>
+</ul>
+<p><strong>Key Functions:</strong></p>
+<ul>
+<li><code>handle_quantity_input()</code> - Input jumlah item</li>
+<li><code>handle_dining_option_input()</code> - Pilih dine-in/takeaway</li>
+<li><code>handle_takeout_type_input()</code> - Pilih pickup/delivery</li>
+<li><code>handle_payment_method_input()</code> - Pilih metode bayar</li>
+<li><code>handle_general_intent()</code> - Intent recognition state GENERAL</li>
+<li><code>generate_receipt()</code> - Generate struk pesanan</li>
+<li><code>handle_invalid_state_input()</code> - Handler input tidak valid</li>
+</ul>
+<h2 id="cara-menjalankan-bot">Cara Menjalankan Bot</h2>
+<p>Cara menjalankan bot <strong>TETAP SAMA</strong> seperti sebelumnya:</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> /Users/kiel/ChatbotNLP
+python3 bot/telegram_bot.py
+</div></code></pre>
+<h2 id="keuntungan-pemecahan">Keuntungan Pemecahan</h2>
+<h3 id="%E2%9C%85-organizatisi-yang-lebih-baik">✅ <strong>Organizatisi yang Lebih Baik</strong></h3>
+<ul>
+<li>Setiap file punya tanggung jawab spesifik</li>
+<li>Mudah mencari function tertentu</li>
+<li>Kode lebih terstruktur dan rapi</li>
+</ul>
+<h3 id="%E2%9C%85-kemudahan-maintenance">✅ <strong>Kemudahan Maintenance</strong></h3>
+<ul>
+<li>Bug di fitur tertentu mudah dilacak</li>
+<li>Perubahan pada satu fitur tidak affect yang lain</li>
+<li>Testing bisa dilakukan per module</li>
+</ul>
+<h3 id="%E2%9C%85-readability--understanding">✅ <strong>Readability &amp; Understanding</strong></h3>
+<ul>
+<li>Setiap file ukurannya lebih kecil</li>
+<li>Function names yang descriptive</li>
+<li>Komentar yang jelas di setiap function</li>
+</ul>
+<h3 id="%E2%9C%85-reusability">✅ <strong>Reusability</strong></h3>
+<ul>
+<li>Functions bisa digunakan ulang</li>
+<li>Module bisa diimport secara terpisah</li>
+<li>Scaling aplikasi lebih mudah</li>
+</ul>
+<h2 id="import-dependencies">Import Dependencies</h2>
+<p>Setiap module mengimport hanya yang dibutuhkan:</p>
+<ul>
+<li><code>user_context.py</code> - Standalone, hanya butuh datetime dan logging</li>
+<li><code>commands.py</code> - Import dari user_context dan modules.menu_manager</li>
+<li><code>message_handlers.py</code> - Import dari user_context, nlp_utils, dan modules</li>
+<li><code>telegram_bot.py</code> - Import semua handler dari module lain</li>
+</ul>
+<h2 id="state-flow-tidak-berubah">State Flow (Tidak Berubah)</h2>
+<p>Flow conversation tetap sama:</p>
+<pre class="hljs"><code><div>STATE_GENERAL -&gt; 
+STATE_AWAITING_QUANTITY -&gt; 
+STATE_AWAITING_DINING_OPTION -&gt; 
+STATE_AWAITING_TAKEOUT_TYPE (jika takeaway) -&gt;
+STATE_AWAITING_PAYMENT_METHOD -&gt; 
+STATE_GENERAL (selesai)
+</div></code></pre>
+<h2 id="key-features-tetap-sama">Key Features (Tetap Sama)</h2>
+<p>✅ Context expiry management (30 menit)<br>
+✅ Referential keywords (&quot;itu&quot;, &quot;yang tadi&quot;)<br>
+✅ Order management dengan multiple items<br>
+✅ NLP intent recognition<br>
+✅ Receipt generation dengan order ID<br>
+✅ Error handling &amp; fallback messages<br>
+✅ Logging comprehensive</p>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Semua fitur dan fungsi bot <strong>100% sama</strong> dengan versi sebelumnya</li>
+<li>Hanya organisasi kode yang berubah untuk kemudahan development</li>
+<li>Performance tidak terpengaruh karena hanya pemecahan logical</li>
+<li>Compatible dengan semua dependencies yang sudah ada</li>
+</ul>
+
+</body>
+
+</html>
