@@ -25,15 +25,16 @@ except ImportError as e:
     sys.exit(1)
 
 # Import modules bot
-from .user_context import (
+from bot.user_context import (
     get_user_state, set_user_state, STATE_GENERAL, STATE_AWAITING_QUANTITY,
-    STATE_AWAITING_DINING_OPTION, STATE_AWAITING_TAKEOUT_TYPE, STATE_AWAITING_PAYMENT_METHOD,
-    user_contexts
+    STATE_AWAITING_MORE_ITEMS, STATE_AWAITING_DINING_OPTION, STATE_AWAITING_TAKEOUT_TYPE, 
+    STATE_AWAITING_PAYMENT_METHOD, user_contexts
 )
-from .commands import start_command, menu_command
-from .message_handlers import (
+from bot.commands import start_command, menu_command
+from bot.message_handlers import (
     handle_quantity_input, handle_dining_option_input, handle_takeout_type_input,
-    handle_payment_method_input, handle_general_intent, handle_invalid_state_input
+    handle_payment_method_input, handle_general_intent, handle_invalid_state_input,
+    handle_more_items_input  # Handler baru untuk multiple items
 )
 
 # Setup logging
@@ -66,6 +67,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     try:
         if current_user_state == STATE_AWAITING_QUANTITY:
             await handle_quantity_input(update, user_id, user_first_name, text)
+            
+        elif current_user_state == STATE_AWAITING_MORE_ITEMS:
+            await handle_more_items_input(update, user_id, user_first_name, text)
             
         elif current_user_state == STATE_AWAITING_DINING_OPTION:
             await handle_dining_option_input(update, user_id, text)
