@@ -68,7 +68,7 @@ async def handle_dining_option_input(update, user_id, text):
         return
 
     processed_text = preprocess_text(text)
-    DINE_IN_KEYWORDS = ["makan di tempat", "di tempat", "dine in", "disini", "di sini"]
+    DINE_IN_KEYWORDS = ["dinikmati di tempat", "makan di tempat", "di tempat", "dine in", "disini", "di sini"]
     TAKEAWAY_KEYWORDS = ["bungkus", "dibungkus", "take away", "takeaway", "bawa pulang"]
 
     chosen_dining_option = None
@@ -85,7 +85,7 @@ async def handle_dining_option_input(update, user_id, text):
             if chosen_dining_option == "dine_in":
                 set_user_state(user_id, STATE_AWAITING_PAYMENT_METHOD)
                 await update.message.reply_text(
-                    f"Baik, untuk makan di tempat. Total pesanan Anda adalah Rp{total_price:,}.\n\n"
+                    f"Baik, untuk dinikmati di tempat. Total pesanan Anda adalah Rp{total_price:,}.\n\n"
                     "Silakan pilih metode pembayaran: E-Wallet atau Cash di Kasir?"
                 )
             elif chosen_dining_option == "takeaway":
@@ -98,7 +98,7 @@ async def handle_dining_option_input(update, user_id, text):
             set_user_state(user_id, STATE_GENERAL)
             await update.message.reply_text("Maaf, sesi pesanan Anda tidak ditemukan. Silakan mulai lagi.")
     else:
-        await update.message.reply_text("Mohon pilih mau dimakan di tempat atau dibungkus?")
+        await update.message.reply_text("Mohon pilih mau dinikmati di tempat atau dibungkus?")
 
 async def handle_takeout_type_input(update, user_id, text):
     """
@@ -106,7 +106,7 @@ async def handle_takeout_type_input(update, user_id, text):
     """
     order_details = get_order_details(user_id)
     if not order_details or order_details.get('dining_option') != 'takeaway':
-        logger.warning(f"User {user_id} di state AWAITING_TAKEOUT_TYPE tapi opsi makan bukan takeaway atau tidak ada order.")
+        logger.warning(f"User {user_id} di state AWAITING_TAKEOUT_TYPE tapi opsi dinikmati bukan takeaway atau tidak ada order.")
         set_user_state(user_id, STATE_GENERAL)
         reset_order_details(user_id)
         await update.message.reply_text("Maaf, terjadi kesalahan. Proses pemesanan diulang.")
@@ -200,7 +200,7 @@ async def generate_receipt(order_details, order_id, payment_method, user_first_n
     item_summary_text = "\n- ".join(item_summary_list) if item_summary_list else "Tidak ada item"
     
     receipt_text = (
-        f"--- Struk Pesanan Kafe Cerita ---\n"
+        f"--- Struk Pesanan Mata Kopian ---\n"
         f"Nomor Pesanan: *{order_id}*\n"
         f"Tanggal: {datetime.now().strftime('%d-%m-%Y %H:%M')}\n\n"
         f"Item Dipesan:\n- {item_summary_text}\n\n"
@@ -210,10 +210,10 @@ async def generate_receipt(order_details, order_id, payment_method, user_first_n
 
     preparation_time = "sesuai antrian"
     if dining_option == "dine_in":
-        receipt_text += "Opsi Makan: Makan di Tempat\n"
+        receipt_text += "Opsi Menikmati: Di Tempat\n"
         preparation_time = "sekitar 15 menit"
     elif dining_option == "takeaway" and takeout_type == "pickup":
-        receipt_text += "Opsi Makan: Dibungkus (Ambil Sendiri)\n"
+        receipt_text += "Opsi Menikmati: Dibungkus (Ambil Sendiri)\n"
         preparation_time = "sekitar 20 menit"
 
     if payment_method == "E-Wallet":
@@ -291,7 +291,7 @@ async def handle_general_intent(update, user_id, user_first_name, text):
 
     elif intent == "tanya_bot":
         await update.message.reply_text(
-            f"Saya adalah bot Kafe Cerita, {user_first_name}. Saya bisa membantu Anda melihat menu, "
+            f"Saya adalah bot Mata Kopian, {user_first_name}. Saya bisa membantu Anda melihat menu, "
             "cek harga, dan memproses pesanan."
         )
     elif intent == "konfirmasi_tidak":
@@ -317,7 +317,7 @@ async def handle_invalid_state_input(update, current_user_state):
     if current_user_state == STATE_AWAITING_MORE_ITEMS:
         await update.message.reply_text("Sebutkan nama menu yang ingin ditambah atau ketik 'selesai' untuk lanjut pembayaran.")
     elif current_user_state == STATE_AWAITING_DINING_OPTION:
-        await update.message.reply_text("Pilihannya mau dimakan di tempat atau dibungkus?")
+        await update.message.reply_text("Pilihannya mau dinikmati di tempat atau dibungkus?")
     elif current_user_state == STATE_AWAITING_TAKEOUT_TYPE:
         await update.message.reply_text("Pilihannya mau diambil sendiri (self-pickup) atau delivery?")
     elif current_user_state == STATE_AWAITING_PAYMENT_METHOD:
@@ -352,7 +352,7 @@ async def handle_more_items_input(update, user_id, user_first_name, text):
         await update.message.reply_text(
             f"Baik! Ringkasan pesanan Anda:\n{order_summary}\n"
             f"Total: Rp{current_total:,}\n\n"
-            "Mau dimakan di tempat atau dibungkus?"
+            "Mau dinikmati di tempat atau dibungkus?"
         )
         return
     
