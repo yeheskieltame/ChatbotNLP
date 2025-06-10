@@ -17,45 +17,30 @@ except ImportError:
 INTENT_KEYWORDS = {
     "lihat_menu": [
         "menu", "daftar makanan", "daftar minuman", "list makanan", "list minuman",
-        "apa aja menunya", "ada apa aja", "lihat menu", "tampilkan menu", "menu dong", 
-        "menu hari ini", "menunya apa", "kasih lihat menu", "bisa lihat menu",
-        "bisa liat menu", "liatin menu", "makanannya apa aja", "minumannya apa aja"
+        "apa aja menunya", "ada apa aja", "lihat menu", "tampilkan menu", "menu dong"
     ],
     "tanya_harga": [
-        "harga", "berapa", "rp", "biaya", "harganya", "berapaan", "price",
-        "berapa duitnya", "harganya berapa", "berapa ya", "berapa sih", "berapa rupiah",
-        "tarif", "fee", "brp", "pinten nggih", "piro"
+        "harga", "berapa", "rp", "biaya", "harganya", "berapaan", "price"
     ],
     "info_pemesanan": [ 
         "pesan", "order", "pemesanan", "cara pesan", "gimana pesannya", "mau pesan", "mau order",
-        "beli", "saya mau", "bisa pesan", "bisa order", "order dong", "pesenin", "bisa beli",
-        "pesan sekarang", "booking", "mau beli", "aku mau", "pesan yuk", "bisa booking",
-        "mau order dong", "mau pesan dong", "gue mau order"
+        "beli", "saya mau" 
     ],
     "sapaan": [
         "halo", "hai", "hi", "selamat pagi", "selamat siang", "selamat sore", "selamat malam",
-        "pagi", "siang", "sore", "malam", "hei", "heii", "heyyo", "met pagi", "met siang", 
-        "met sore", "met malam", "hello", "konnichiwa", "ohayou", "konbanwa", "hallo", "haloo"
+        "pagi", "siang", "sore", "malam", "hei"
     ],
     "terima_kasih": [
-        "makasih", "terima kasih", "thanks", "thank you", "nuhun", "suwun", "matur nuwun", "nuwun"
-        "trims", "makasih ya", "thank u", "tengkyu", "makasii", "makasih banyak", "thx", 
-        "arigatou", "tenkyu", "makasih loh", "makasi banget", "makaci", "makacih", "ty"
+        "makasih", "terima kasih", "thanks", "thank you", "nuhun", "suwun", "matur nuwun"
     ],
     "tanya_bot": [ 
-        "kamu siapa", "ini siapa", "ini bot apa", "apa yang bisa kamu lakukan",
-        "lu siapa", "siapa kamu", "bot apa ini", "bisa ngapain", "apa tugas kamu",
-        "bot bisa apa", "kenalin dong", "fungsi kamu apa"
+        "kamu siapa", "ini siapa", "ini bot apa", "apa yang bisa kamu lakukan"
     ],
     "konfirmasi_ya": [ # Berguna untuk konfirmasi dalam alur state
-        "ya", "iya", "betul", "benar", "ok", "oke", "baik", "sip", "setuju", "lanjut", "mau",
-        "yup", "yoi", "yo", "oke banget", "ya dong", "okelah", "boleh", "lets go", "gas", 
-        "gasskeun", "yuk", "cus", "oke siap"
+        "ya", "iya", "betul", "benar", "ok", "oke", "baik", "sip", "setuju", "lanjut", "mau"
     ],
     "konfirmasi_tidak": [ # Berguna untuk konfirmasi dalam alur state
-        "tidak", "bukan", "jangan", "ga", "gak", "nggak", "batal", "cancel", "gak jadi",
-        "tidak jadi", "no", "enggak", "skip", "ga usah", "nggak deh", "nanti aja",
-        "ga dulu", "nanti aja deh", "gajadi deh"
+        "tidak", "bukan", "jangan", "ga", "gak", "nggak", "batal", "cancel", "gak jadi"
     ]
 }
 
@@ -103,11 +88,15 @@ def extract_entities_item_name(text):
     processed_text = preprocess_text(text)
     menu = get_menu(force_reload=False) 
     
+    # Perbaikan: Ambil semua item dari semua kategori yang ada
     all_items = []
-    if menu.get("makanan"):
-        all_items.extend(menu["makanan"])
-    if menu.get("minuman"):
-        all_items.extend(menu["minuman"])
+    
+    # Daftar kategori yang sesuai dengan struktur menu
+    categories = ["es_kopi", "non_kopi", "espresso_based", "refreshment", "others", "pastry"]
+    
+    for category in categories:
+        if menu.get(category):
+            all_items.extend(menu[category])
 
     found_items_data = []
     sorted_items_by_name_len = sorted(all_items, key=lambda x: len(x.get("nama","")), reverse=True)

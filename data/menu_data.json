@@ -1,67 +1,171 @@
 {
-    "makanan": [
+    "refreshment": [
         {
-            "id": "M001",
-            "nama": "Nasi Goreng Mata Kopian",
-            "harga": 25000,
-            "deskripsi": "Nasi goreng spesial dengan bumbu rahasia Mata Kopian."
-        },
-        {
-            "id": "M002",
-            "nama": "Mie Kuah Rempah",
-            "harga": 22000,
-            "deskripsi": "Mie kuah dengan kaldu rempah yang hangat dan kaya rasa."
-        },
-        {
-            "id": "M003",
-            "nama": "Ayam Geprek Sambal Bawang",
-            "harga": 28000,
-            "deskripsi": "Ayam geprek renyah dengan sambal bawang pedas."
-        },
-        {
-            "id": "M004",
-            "nama": "Roti Bakar Cokelat Keju",
+            "id": "R001",
+            "nama": "Americano Fantasy",
             "harga": 18000,
-            "deskripsi": "Roti bakar klasik dengan topping cokelat dan keju."
+            "deskripsi": "Sparkling Coffee Based."
         },
         {
-            "id": "M005",
-            "nama": "Pisang Goreng Karamel",
-            "harga": 15000,
-            "deskripsi": "Pisang goreng renyah disiram saus karamel."
+            "id": "R002",
+            "nama": "Red Berry",
+            "harga": 18000,
+            "deskripsi": "Sparkling Coffee Based."
+        },
+        {
+            "id": "R003",
+            "nama": "Oranje",
+            "harga": 18000,
+            "deskripsi": "Sparkling Coffee Based."
+        },
+        {
+            "id": "R004",
+            "nama": "Aromatic Tea",
+            "harga": 18000,
+            "deskripsi": "Sparkling Tea Based. Berry."
+        },
+        {
+            "id": "R005",
+            "nama": "Teagsm",
+            "harga": 18000,
+            "deskripsi": "Sparkling Tea Based. Apple + Lemon"
         }
     ],
-    "minuman": [
+    "es_kopi": [
         {
-            "id": "K001",
-            "nama": "Kopi Susu Mata Kopian",
+            "id": "C001",
+            "nama": "Es Kopi Susu Mako",
             "harga": 18000,
-            "deskripsi": "Espresso, susu segar, dan gula aren pilihan."
+            "deskripsi": "Espresso. Condensed. Milk. Palmsugar."
         },
         {
-            "id": "K002",
-            "nama": "Americano",
-            "harga": 15000,
-            "deskripsi": "Espresso dengan air panas."
-        },
-        {
-            "id": "K003",
-            "nama": "Teh Melati Hangat",
-            "harga": 12000,
-            "deskripsi": "Teh melati klasik yang menenangkan."
-        },
-        {
-            "id": "K004",
-            "nama": "Es Jeruk Segar",
-            "harga": 16000,
-            "deskripsi": "Perasan jeruk segar dengan es."
-        },
-        {
-            "id": "K005",
-            "nama": "Cokelat Klasik",
+            "id": "C002",
+            "nama": "Es Kopi Karla",
             "harga": 20000,
-            "deskripsi": "Minuman cokelat hangat atau dingin yang kaya rasa."
+            "deskripsi": "Espresso. Condensed. Milk. Cramelsyrup."
+        },
+        {
+            "id": "C003",
+            "nama": "Es Kopi Rum Cookies",
+            "harga": 22000,
+            "deskripsi": "Espresso. Condensed. Milk. Rumsyrup. Cookies. Ice Cream"
+        },
+        {
+            "id": "C004",
+            "nama": "Es Kopi Moka",
+            "harga": 20000,
+            "deskripsi": "Espresso. Condensed. Milk. Chocolate."
+        },
+        {
+            "id": "C005",
+            "nama": "Es Kopi Koko",
+            "harga": 20000,
+            "deskripsi": "Espresso. Coconutwater."
+        },
+        {
+            "id": "C006",
+            "nama": "Es Kopi Manis Pandan (Komandan)",
+            "harga": 20000,
+            "deskripsi": "Espresso. Condensed. Milk. Pandansyrup."
+        },
+        {
+            "id": "C007",
+            "nama": "Kopi Santan",
+            "harga": 20000,
+            "deskripsi": "Kopi Susu Santan."
+        },
+        {
+            "id": "C008",
+            "nama": "Matcha Presso",
+            "harga": 25000,
+            "deskripsi": "Gurihnya matcha latte bercampur nikmatnya double espresso."
         }
     ],
-    "info_pemesanan": "Untuk memesan, silakan sebutkan nama item dan jumlahnya. Contoh: 'Saya mau pesan Nasi Goreng Mata Kopian 1 dan Kopi Susu Mata Kopian 2'. Pemesanan juga bisa langsung di kasir."
+    "non_kopi": [
+        {
+            "id": "N001",
+            "nama": "Chocolate",
+            "harga": 20000,
+            "deskripsi": "Hot / ice chocolate."
+        },
+        {
+            "id": "N002",
+            "nama": "Matcha Latte",
+            "harga": 20000,
+            "deskripsi": "From premium matcha powder."
+        },
+        {
+            "id": "n003",
+            "nama": "Choco Rum",
+            "harga": 22000,
+            "deskripsi": "Chocolate + Eskrim Vanila + Cookies."
+        }
+    ],
+    "others": [
+        {
+            "id": "O001",
+            "nama": "Manual Brew",
+            "harga": 18000,
+            "deskripsi": "Choose beans (Gayo)."
+        },
+        {
+            "id": "O002",
+            "nama": "Kopi Vietnam",
+            "harga": 15000,
+            "deskripsi": "Kopi Vietnam."
+        }
+    ],
+    "espresso_based": [
+        {
+            "id": "E001",
+            "nama": "Espresso",
+            "harga": 12000,
+            "deskripsi": "Espresso."
+        },
+        {
+            "id": "E002",
+            "nama": "Es Americano",
+            "harga": 12000,
+            "deskripsi": "Es Americano."
+        },
+        {
+            "id": "E003",
+            "nama": "Coffee Latte",
+            "harga": 18000,
+            "deskripsi": "Hot / ice , manis / tawar."
+        },
+        {
+            "id": "E004",
+            "nama": "Cappuccino",
+            "harga": 18000,
+            "deskripsi": "Coffe + Milk."
+        }
+    ],
+    "pastry": [
+        {
+            "id": "P001",
+            "nama": "Almond Croissant",
+            "harga": 20500,
+            "deskripsi": "Croissant dengan Kacang Almond. Menu Kami Panaskan Terlebih Dahulu."
+        },
+        {
+            "id": "P002",
+            "nama": "Croissant Original",
+            "harga": 14000,
+            "deskripsi": "Croissant Original. Menu Kami Panaskan Terlebih Dahulu."
+        },
+        {
+            "id": "P003",
+            "nama": "Pain Au Chocolat",
+            "harga": 16000,
+            "deskripsi": "Pain Au Chocolat. Menu Kami Panaskan Terlebih Dahulu."
+        },
+        {
+            "id": "P004",
+            "nama": "CROFFLE",
+            "harga": 26000,
+            "deskripsi": "SALTED CARAMEL / DOUBLE CHOCOLATE."
+        }
+    ],
+    "info_pemesanan": "Untuk memesan, silakan sebutkan nama item dan jumlahnya. Contoh: 'Saya mau pesan Espresso 1 dan Almond Croissant 2'. Pemesanan juga bisa langsung di kasir."
 }

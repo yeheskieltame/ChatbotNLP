@@ -25,7 +25,7 @@ except ImportError as e:
 
 # Konfigurasi Halaman Streamlit
 st.set_page_config(
-    page_title="Admin Dashboard - Mata Kopian",
+    page_title="Admin Dashboard - Kafe Cerita",
     page_icon="☕",
     layout="wide"
 )
@@ -39,7 +39,7 @@ if 'confirming_delete_id' not in st.session_state:
     st.session_state.confirming_delete_id = None
 
 
-st.title("☕ Admin Dashboard Mata Kopian")
+st.title("☕ Admin Dashboard Kafe Cerita")
 st.markdown("Kelola menu dan informasi kafe Anda di sini.")
 
 # Tombol untuk memuat ulang data menu
@@ -114,12 +114,12 @@ if st.session_state.editing_item_id:
 
 
 # --- TABS UNTUK KELOLA MENU DAN INFO ---
-tab1, tab2, tab3 = st.tabs(["➕ Tambah Item & ℹ️ Info Pesan", "🍔 Makanan", "🥤 Minuman"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["➕ Tambah Item & ℹ️ Info Pesan", "☕ Es Kopi", "🍵 Non Kopi", "🫕 Espresso Based", "🍸 Refreshment", "🥤 Others", "🥐 Pastry"])
 
 with tab1:
     st.header("➕ Tambah Item Menu Baru")
     with st.form("tambah_item_form", clear_on_submit=True):
-        tambah_kategori = st.selectbox("Pilih Kategori:", ["makanan", "minuman"], key="add_cat_main")
+        tambah_kategori = st.selectbox("Pilih Kategori:", ["es_kopi", "non_kopi", "espresso_based", "refreshment", "others", "pastry"], key="add_cat_main")
         tambah_nama = st.text_input("Nama Item:", key="add_nama_main")
         tambah_harga = st.number_input("Harga (Rp):", min_value=0, step=1000, key="add_harga_main")
         tambah_deskripsi = st.text_area("Deskripsi Item:", key="add_desc_main")
@@ -220,19 +220,46 @@ def display_menu_items(category_name, items_list):
 
 
 with tab2:
-    st.header("🍔 Daftar Makanan")
-    if not menu_data or "makanan" not in menu_data:
-        st.warning("Data makanan tidak dapat dimuat atau kosong.")
-    else:
-        display_menu_items("Makanan", menu_data.get("makanan", []))
-
-with tab3:
-    st.header("🥤 Daftar Minuman")
-    if not menu_data or "minuman" not in menu_data:
+    st.header("☕ Es Kopi")
+    if not menu_data or "es_kopi" not in menu_data:
         st.warning("Data minuman tidak dapat dimuat atau kosong.")
     else:
-        display_menu_items("Minuman", menu_data.get("minuman", []))
+        display_menu_items("Es Kopi", menu_data.get("es_kopi", []))
 
+with tab3:
+    st.header("🍵 Non Kopi")
+    if not menu_data or "non_kopi" not in menu_data:
+        st.warning("Data minuman tidak dapat dimuat atau kosong.")
+    else:
+        display_menu_items("Non Kopi", menu_data.get("non_kopi", []))
+
+with tab4:
+    st.header("🫕 Espresso Based")
+    if not menu_data or "espresso_based" not in menu_data:
+        st.warning("Data minuman tidak dapat dimuat atau kosong.")
+    else:
+        display_menu_items("Espresso Based", menu_data.get("espresso_based", []))
+
+with tab5:
+    st.header("🍸 Refreshment")
+    if not menu_data or "refreshment" not in menu_data:
+        st.warning("Data minuman tidak dapat dimuat atau kosong.")
+    else:
+        display_menu_items("Refreshment", menu_data.get("refreshment", []))
+
+with tab6:
+    st.header("🥤 Others")
+    if not menu_data or "others" not in menu_data:
+        st.warning("Data minuman tidak dapat dimuat atau kosong.")
+    else:
+        display_menu_items("Other", menu_data.get("others", []))
+
+with tab7:
+    st.header("🥐 Pastry")
+    if not menu_data or "pastry" not in menu_data:
+        st.warning("Data pastry tidak dapat dimuat atau kosong.")
+    else:
+        display_menu_items("Pastry", menu_data.get("pastry", []))
 
 st.sidebar.divider()
 st.sidebar.markdown("---")

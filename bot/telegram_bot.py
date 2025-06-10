@@ -25,7 +25,9 @@ except ImportError as e:
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
+
 logger = logging.getLogger(__name__)
+print(logger)
 
 # --- State Percakapan untuk Pemesanan ---
 STATE_GENERAL = "GENERAL"
@@ -175,7 +177,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     set_user_state(user_id, STATE_GENERAL) 
     reset_order_details(user_id) # Bersihkan sisa order jika ada
     await update.message.reply_html(
-        rf"Halo {user.mention_html()}! Selamat datang di Mata Kopian. Ada yang bisa saya bantu? "
+        rf"Halo {user.mention_html()}! Selamat datang di Kafe Cerita. Ada yang bisa saya bantu? "
         "Anda bisa tanya tentang menu, harga, atau cara pemesanan.",
     )
 
@@ -183,25 +185,44 @@ async def menu_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     user_id = update.effective_user.id
     # set_user_state(user_id, STATE_GENERAL) # Melihat menu tidak harus mereset state order
     menu = get_menu(force_reload=True)
-    response = "Berikut adalah menu Mata Kopian:\n\n"
-    response += "*Makanan* 🍔:\n"
-    makanan = menu.get("makanan", [])
-    if makanan:
-        for item in makanan:
-            response += f"- {item.get('nama', 'N/A')}: Rp{item.get('harga', 0):,}\n"
-    else:
-        response += "_Belum ada menu makanan._\n"
-    response += "\n"
-
-    response += "*Minuman* 🥤:\n"
-    minuman = menu.get("minuman", [])
-    if minuman:
-        for item in minuman:
-            response += f"- {item.get('nama', 'N/A')}: Rp{item.get('harga', 0):,}\n"
-    else:
-        response += "_Belum ada menu minuman._\n"
-    response += "\n"
+    response = "☕ *Menu Kafe Cerita* ☕\n\n"
+    
+    # Mapping kategori dengan emoji dan nama yang user-friendly
+    categories = {
+        "es_kopi": {"name": "Es Kopi", "emoji": "☕"},
+        "non_kopi": {"name": "Non Kopi", "emoji": "🍵"},
+        "espresso_based": {"name": "Espresso Based", "emoji": "🫕"},
+        "refreshment": {"name": "Refreshment", "emoji": "🍸"},
+        "others": {"name": "Others", "emoji": "🥤"},
+        "pastry": {"name": "Pastry", "emoji": "🥐"}
+    }
+    
+    # Tampilkan setiap kategori
+    for category_key, category_info in categories.items():
+        items = menu.get(category_key, [])
+        response += f"*{category_info['name']}* {category_info['emoji']}:\n"
+        
+        if items:
+            for item in items:
+                nama = item.get('nama', 'N/A')
+                harga = item.get('harga', 0)
+                deskripsi = item.get('deskripsi', '')
+                
+                # Format item dengan harga
+                response += f"• {nama}: Rp{harga:,}"
+                
+                # Tambahkan deskripsi jika ada (opsional, bisa dihilangkan jika terlalu panjang)
+                if deskripsi:
+                    response += f"\n  _{deskripsi}_"
+                response += "\n"
+        else:
+            response += f"_Belum ada menu {category_info['name'].lower()}._\n"
+        
+        response += "\n"
+    
+    # Tambahkan info pemesanan
     response += f"*Info Pemesanan* ℹ️:\n{get_info_pemesanan(force_reload=True)}"
+    
     await update.message.reply_text(response, parse_mode='Markdown')
 
 
@@ -379,7 +400,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                 item_summary_text = "\n- ".join(item_summary_list) if item_summary_list else "Tidak ada item"
                 
                 receipt_text = (
-                    f"--- Struk Pesanan Mata Kopian ---\n"
+                    f"--- Struk Pesanan Kafe Cerita ---\n"
                     f"Nomor Pesanan: *{order_id}*\n"
                     f"Tanggal: {datetime.now().strftime('%d-%m-%Y %H:%M')}\n\n"
                     f"Item Dipesan:\n- {item_summary_text}\n\n"
