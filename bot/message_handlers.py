@@ -5,11 +5,11 @@ Memisahkan logic handling berdasarkan state dan intent
 import logging
 from datetime import datetime, timedelta
 
-from .user_context import *
+from bot.user_context import *
 
 # Import NLP utilities dan modules
 try:
-    from .nlp_utils import recognize_intent, extract_entities_item_name, extract_quantity, preprocess_text
+    from bot.nlp_utils import recognize_intent, extract_entities_item_name, extract_quantity, preprocess_text
     from modules.menu_manager import get_info_pemesanan
 except ImportError as e:
     print(f"Gagal mengimpor dependencies: {e}")
@@ -46,11 +46,11 @@ async def handle_quantity_input(update, user_id, user_first_name, text):
             item_names_in_order = [f"{item['quantity']} {item['item_data']['nama']}" for item in order_details['items']]
         order_summary = ", ".join(item_names_in_order) if item_names_in_order else "Belum ada item"
 
-        set_user_state(user_id, STATE_AWAITING_DINING_OPTION)
+        set_user_state(user_id, STATE_AWAITING_MORE_ITEMS)
         await update.message.reply_text(
             f"Oke, {qty} {item_to_add_data['nama']} sudah ditambahkan. "
             f"Pesanan Anda saat ini: {order_summary} (Total sementara: Rp{current_total:,}).\n\n"
-            "Mau dimakan di tempat atau dibungkus?"
+            "Apakah ingin menambah item lain? Ketik nama menu yang ingin ditambah atau ketik 'selesai' untuk lanjut ke pembayaran."
         )
     else:
         await update.message.reply_text(f"Jumlah tidak valid, {user_first_name}. Mau pesan berapa banyak untuk {item_to_add_data['nama']}?")
@@ -245,7 +245,7 @@ async def handle_general_intent(update, user_id, user_first_name, text):
     logger.info(f"Intent terdeteksi (State GENERAL): {intent} (Skor: {score})")
 
     if intent == "lihat_menu":
-        from .commands import menu_command
+        from bot.commands import menu_command
         await menu_command(update, None)
     
     elif intent == "tanya_harga":
@@ -314,7 +314,9 @@ async def handle_invalid_state_input(update, current_user_state):
     Handler untuk input yang tidak sesuai dengan state saat ini
     Memberikan reminder message sesuai state
     """
-    if current_user_state == STATE_AWAITING_DINING_OPTION:
+    if current_user_state == STATE_AWAITING_MORE_ITEMS:
+        await update.message.reply_text("Sebutkan nama menu yang ingin ditambah atau ketik 'selesai' untuk lanjut pembayaran.")
+    elif current_user_state == STATE_AWAITING_DINING_OPTION:
         await update.message.reply_text("Pilihannya mau dimakan di tempat atau dibungkus?")
     elif current_user_state == STATE_AWAITING_TAKEOUT_TYPE:
         await update.message.reply_text("Pilihannya mau diambil sendiri (self-pickup) atau delivery?")
@@ -322,3 +324,47 @@ async def handle_invalid_state_input(update, current_user_state):
         await update.message.reply_text("Pilih metode pembayaran: E-Wallet atau Cash di Kasir?")
     elif current_user_state == STATE_AWAITING_QUANTITY:
         await update.message.reply_text("Mohon masukkan jumlah item yang ingin dipesan (angka).")
+
+async def handle_more_items_input(update, user_id, user_first_name, text):
+    """
+    Handler untuk input saat STATE_AWAITING_MORE_ITEMS
+    User bisa menambah item lain atau selesai untuk lanjut pembayaran
+    """
+    processed_text = text.lower().strip()
+    
+    # Keywords untuk menyelesaikan pemesanan
+    FINISH_KEYWORDS = ["selesai", "tidak", "enggak", "nggak", "cukup", "lanjut", "bayar", "checkout"]
+    
+    if any(keyword in processed_text for keyword in FINISH_KEYWORDS):
+        # User selesai memesan, lanjut ke dining option
+        order_details = get_order_details(user_id)
+        if not order_details or not order_details.get('items'):
+            set_user_state(user_id, STATE_GENERAL)
+            reset_order_details(user_id)
+            await update.message.reply_text("Maaf, tidak ada item dalam pesanan. Silakan mulai memesan lagi.")
+            return
+            
+        current_total = order_details.get('total_price', 0)
+        item_names_in_order = [f"{item['quantity']} {item['item_data']['nama']}" for item in order_details['items']]
+        order_summary = ", ".join(item_names_in_order)
+        
+        set_user_state(user_id, STATE_AWAITING_DINING_OPTION)
+        await update.message.reply_text(
+            f"Baik! Ringkasan pesanan Anda:\n{order_summary}\n"
+            f"Total: Rp{current_total:,}\n\n"
+            "Mau dimakan di tempat atau dibungkus?"
+        )
+        return
+    
+    # User ingin menambah item lain - coba extract nama item
+    item_data = extract_entities_item_name(text)
+    if item_data:
+        set_user_state(user_id, STATE_AWAITING_QUANTITY)
+        set_current_item_to_add(user_id, item_data)
+        await update.message.reply_text(f"Mau pesan {item_data['nama']} berapa banyak?")
+    else:
+        # Item tidak ditemukan, minta input yang lebih spesifik
+        await update.message.reply_text(
+            f"Maaf {user_first_name}, saya tidak menemukan menu '{text}'. "
+            "Coba sebutkan nama menu yang lebih spesifik, lihat /menu, atau ketik 'selesai' jika sudah cukup."
+        )

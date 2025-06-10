@@ -6,7 +6,7 @@ import logging
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from .user_context import set_user_state, reset_order_details, STATE_GENERAL
+from bot.user_context import set_user_state, reset_order_details, STATE_GENERAL
 
 # Import modules yang diperlukan
 try:
