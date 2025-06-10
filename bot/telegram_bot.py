@@ -104,7 +104,7 @@ def main() -> None:
         logger.error("Token Telegram tidak ditemukan atau belum diatur di config.py!")
         sys.exit("Silakan atur TELEGRAM_BOT_TOKEN di config.py")
 
-    logger.info("Memulai Telegram Bot Kafe Cerita...")
+    logger.info("Memulai Telegram Bot Mata Kopian...")
     
     # Build application dengan token
     application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()

@@ -29,7 +29,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     reset_order_details(user_id)
     
     await update.message.reply_html(
-        rf"Halo {user.mention_html()}! Selamat datang di Kafe Cerita. Ada yang bisa saya bantu? "
+        rf"Halo {user.mention_html()}! Selamat datang di Bot Mata Kopian. Ada yang bisa saya bantu? "
         "Anda bisa tanya tentang menu, harga, atau cara pemesanan.",
     )
     logger.info(f"User {user_id} ({user.first_name}) memulai bot dengan /start")
@@ -43,7 +43,7 @@ async def menu_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     logger.info(f"User {user_id} meminta menu dengan /menu")
     
     menu = get_menu(force_reload=True)
-    response = "☕ *Menu Kafe Cerita* ☕\n\n"
+    response = "☕ *Menu Mata Kopian* ☕\n\n"
     
     # Mapping kategori dengan emoji dan nama yang user-friendly
     categories = {
