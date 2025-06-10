@@ -59,7 +59,7 @@ INTENT_KEYWORDS = {
         "yup", "yoi", "yo", "oke banget", "ya dong", "okelah", "boleh", "lets go", "gas", 
         "gasskeun", "yuk", "cus", "oke siap", "yess", "iya dong", "oke sip", "oke deh",
         "oke aja", "oke yuk", "oke gas", "oke gasskeun", "oke lets go", "oke yuk gas",
-        "boleh dong", "sip gas", "yuhuu", "sip gas"
+        "boleh dong", "sip gas", "yuhuu"
     ],
     "konfirmasi_tidak": [ # Berguna untuk konfirmasi dalam alur state
         "tidak", "bukan", "jangan", "ga", "gak", "nggak", "batal", "cancel", "gak jadi",
