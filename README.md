@@ -2,6 +2,13 @@
 
 Aplikasi Chatbot Telegram dengan fitur NLP (Natural Language Processing) untuk "Mata Kopian" yang memungkinkan pengguna memesan makanan dan minuman melalui chat. Dilengkapi dengan dashboard admin untuk mengelola menu.
 
+## Kontributor
+
+Dibuat oleh:
+- Yeheskiel Yunus Tame - 71220903              
+- P. Harimurti Adi Bagaskara - 71220918
+- Nahason Christian Ade Herlambang - 71220888
+
 ## Fitur Utama
 
 ### 1. Telegram Chatbot
